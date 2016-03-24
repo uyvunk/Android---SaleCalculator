@@ -6,15 +6,19 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
         // set up the Touch listerner for the UI
@@ -45,14 +49,24 @@ public class MainActivity extends AppCompatActivity {
                 double sale = sale_percent + coupon_percent > 100 ?
                         100: sale_percent + coupon_percent;
                 double after_sale = reg_price * ((100 - sale)/100);
-                double result_total = after_sale * tax_percent/100;
+                double result_total = after_sale*(1 + tax_percent/100);
                 double result_save = reg_price - after_sale;
 
                 // display the result
+                TextView tv_result_aftersale = (TextView) findViewById(R.id.lbl_result_aftersale);
+                TextView tv_result_tax = (TextView) findViewById(R.id.lbl_result_tax);
+
                 String s_result_total = String.format(
-                        getResources().getString(R.string.result_total) + " %.2f", result_total);
+                        getResources().getString(R.string.result_total) + "%.2f", result_total);
                 String s_result_save = String.format(
-                        getResources().getString(R.string.result_save) + " %.2f", result_save);
+                        getResources().getString(R.string.result_save) + "%.2f", result_save);
+                String s_result_tax = String.format(
+                        getResources().getString(R.string.result_tax) +
+                                "%.2f", after_sale*tax_percent/100);
+                String s_result_aftersale = String.format(
+                        getResources().getString(R.string.result_aftersale) + "%.2f", after_sale);
+                tv_result_tax.setText(s_result_tax);
+                tv_result_aftersale.setText(s_result_aftersale);
                 tv_result_total.setText(s_result_total);
                 tv_result_save.setText(s_result_save);
             }

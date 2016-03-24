@@ -2,11 +2,13 @@
     <string name="app_name">Sale Calculator</string>
     <string name="lbl_reg_price">Regular $:</string>
     <string name="lbl_sale_percent">Sale %:</string>
-    <string name="lbl_coupon_percent">Additional Coupon Sale %:</string>
+    <string name="lbl_coupon_percent">Coupon Sale %:</string>
     <string name="et_coupon_percent">0</string>
     <string name="lbl_tax_percent">Tax %:</string>
     <string name="but_calculate">Check Price</string>
-    <string name="result_total">After Sale $:</string>
-    <string name="result_save">You Save $:</string>
+    <string name="result_aftersale">After Sale $</string>
+    <string name="result_save">You Save $</string>
+    <string name="result_total">Total $</string>
+    <string name="result_tax">Tax $</string>
     <string name="error">Please make sure the entered values are correct</string>
 </resources>
