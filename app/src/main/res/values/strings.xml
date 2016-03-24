@@ -11,4 +11,7 @@
     <string name="result_total">Total $</string>
     <string name="result_tax">Tax $</string>
     <string name="error">Please make sure the entered values are correct</string>
+
+    <!-- ID for Google AD -->
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

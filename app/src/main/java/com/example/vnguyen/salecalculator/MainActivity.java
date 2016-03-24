@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-
+// for Google Ad
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,11 +19,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-        // set up the Touch listerner for the UI
+        // set up Touch listerner for the UI
         setupTouchListerners(this.findViewById(R.id.parent));
+
+        // set up Google Ad
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     public void calculate(View view) {
@@ -44,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             // make sure the input is correct
             if (reg_price < 0 || sale_percent < 0 || coupon_percent < 0 || tax_percent < 0
                     || sale_percent > 100 || coupon_percent > 100) {
-                tv_result_total.setText(R.string.error);
+                displayErrorMessage();
             } else {
                 double sale = sale_percent + coupon_percent > 100 ?
                         100: sale_percent + coupon_percent;
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 tv_result_save.setText(s_result_save);
             }
         } catch (Exception e) {
-            tv_result_total.setText(R.string.error);
+            displayErrorMessage();
         }
     }
 
@@ -100,6 +105,17 @@ public class MainActivity extends AppCompatActivity {
                 setupTouchListerners(innerView);
             }
         }
+    }
+
+    private void displayErrorMessage() {
+        TextView tv_result_total = (TextView) findViewById(R.id.lbl_result_total);
+        TextView tv_result_save = (TextView) findViewById(R.id.lbl_result_save);
+        TextView tv_result_aftersale = (TextView) findViewById(R.id.lbl_result_aftersale);
+        TextView tv_result_tax = (TextView) findViewById(R.id.lbl_result_tax);
+        tv_result_aftersale.setText("");
+        tv_result_save.setText("");
+        tv_result_tax.setText("");
+        tv_result_total.setText(R.string.error);
     }
 
     public static void hideSoftKeyboard(Activity activity) {
